@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 // import PropTypes from 'prop-types';
 
@@ -10,32 +10,33 @@ const AddContactForm = styled.form`
   padding: 25px;
 `;
 
-export class ContactForm extends Component {
-  state = {
-    name: '',
-    number: '',
-  };
+export const ContactForm = ({addContact}) => {
+  const [contactName, setContactName] = useState('')
+  const [contactNumber, setContactNumber] = useState('')
+  // state = {
+  //   name: '',
+  //   number: '',
+  // };
 
-  handleChange = e => {
+  const handleChange = e => {
     const event = e.target;
     if (event.type === 'text') {
-      this.setState({ name: event.value });
+      setContactName(event.value );
     }
     if (event.type === 'tel') {
-      this.setState({ number: event.value });
+      setContactNumber(event.value );
     }
   };
 
-  onSubmit = e => {
+  const onSubmit = e => {
     e.preventDefault();
-    this.props.onSubmit(this.state);
-    this.setState({ name: '', number: '' });
+    addContact(contactName, contactNumber)
+    setContactName('')
+    setContactNumber('');
   };
 
-  render() {
-    const { name, number } = this.state;
     return (
-      <AddContactForm onSubmit={this.onSubmit} autoComplete="off">
+      <AddContactForm onSubmit={onSubmit} autoComplete="off">
         <label>
           <p>Name</p>
           <input
@@ -43,8 +44,8 @@ export class ContactForm extends Component {
             name="name"
             pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
             required
-            value={name}
-            onChange={this.handleChange}
+            value={contactName}
+            onChange={handleChange}
           />
         </label>
         <label>
@@ -54,8 +55,8 @@ export class ContactForm extends Component {
             name="number"
             pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
             required
-            value={number}
-            onChange={this.handleChange}
+            value={contactNumber}
+            onChange={handleChange}
           />
         </label>
         <br />
@@ -63,4 +64,3 @@ export class ContactForm extends Component {
       </AddContactForm>
     );
   }
-}
