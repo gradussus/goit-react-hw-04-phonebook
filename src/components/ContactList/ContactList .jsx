@@ -1,24 +1,6 @@
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import { Item, List, DeleteBtn } from './ContactList .styled';
 
-const List = styled.ul`
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  width: 500px;
-  background-color: #ffd1e0;
-  border-radius: 10px;
-  padding: 25px;
-`;
-
-const Item = styled.li`
-  display: flex;
-  justify-content: space-between;
-  margin: 10px;
-  width: 100%;
-  text-align: start;
-`;
-const DeleteBtn = styled.button``;
 export const ContactList = ({ contacts, deleteCont }) => {
   return (
     <List>
